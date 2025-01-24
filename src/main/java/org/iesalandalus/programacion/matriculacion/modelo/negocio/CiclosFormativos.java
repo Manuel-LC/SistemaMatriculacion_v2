@@ -1,35 +1,30 @@
 package org.iesalandalus.programacion.matriculacion.modelo.negocio;
 
+import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CiclosFormativos {
 
-    private static int capacidad;
-    private static int tamano;
-    private static CicloFormativo[] coleccionCiclosFormativos;
+    private static List<CicloFormativo> coleccionCiclosFormativos;
 
-    public CiclosFormativos(int capacidad) {
-        if (capacidad <= 0) {
-            throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
-        }
-
-        CiclosFormativos.capacidad = capacidad;
-        tamano = 0;
-        coleccionCiclosFormativos = new CicloFormativo[capacidad];
+    public CiclosFormativos() {
+        coleccionCiclosFormativos = new ArrayList<>();
     }
 
-    public CicloFormativo[] get() {
+    public List<CicloFormativo> get() {
         return copiaProfundaCiclosFormativos();
     }
 
-    private static CicloFormativo[] copiaProfundaCiclosFormativos() {
-        CicloFormativo[] copiaCiclosFormativos = new CicloFormativo[capacidad];
+    private static List<CicloFormativo> copiaProfundaCiclosFormativos() {
+        List<CicloFormativo> copiaCiclosFormativos = new ArrayList<>();
 
-        for (int i = 0; i < capacidad; i++) {
-            if (coleccionCiclosFormativos[i] != null) {
-                copiaCiclosFormativos[i] = new CicloFormativo(coleccionCiclosFormativos[i]);
+        for (CicloFormativo cicloFormativo : coleccionCiclosFormativos) {
+            if (cicloFormativo != null) {
+                copiaCiclosFormativos.add(new CicloFormativo(cicloFormativo));
             }
         }
 
@@ -37,66 +32,32 @@ public class CiclosFormativos {
     }
 
     public int getTamano() {
-        return tamano;
-    }
-
-    public int getCapacidad() {
-        return capacidad;
+        return coleccionCiclosFormativos.size();
     }
 
     public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         if (cicloFormativo == null) {
             throw new NullPointerException("ERROR: No se puede insertar un ciclo formativo nulo.");
         }
-        if (buscar(cicloFormativo) != null) {
+
+        if (!coleccionCiclosFormativos.contains(cicloFormativo)) {
+            coleccionCiclosFormativos.add(new CicloFormativo(cicloFormativo));
+        } else {
             throw new OperationNotSupportedException("ERROR: Ya existe un ciclo formativo con ese código.");
         }
-
-        int i = buscarIndice(cicloFormativo);
-
-        if (i != -1) {
-            coleccionCiclosFormativos[i] = new CicloFormativo(cicloFormativo);
-            tamano++;
-        } else {
-            throw new OperationNotSupportedException("ERROR: No se aceptan más ciclos formativos.");
-        }
-    }
-
-    private static int buscarIndice(CicloFormativo alumno) {
-        int indice = -1;
-        boolean encontrado = false;
-
-        for (int i = 0; i < capacidad && !encontrado; i++) {
-            if (coleccionCiclosFormativos[i] == null || coleccionCiclosFormativos[i].equals(alumno)) {
-                encontrado = true;
-                indice = i;
-            }
-        }
-
-        return indice;
-    }
-
-    private boolean tamanoSuperado(int indice) {
-        return indice >= tamano;
-    }
-
-    private boolean capacidadSuperada(int indice) {
-        return indice >= capacidad;
     }
 
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
-        int i;
-        boolean encontrado = false;
-
-        for(i = 0; i < capacidad && !encontrado; i++)
-        {
-            if (coleccionCiclosFormativos[i] != null && coleccionCiclosFormativos[i].equals(cicloFormativo)) {
-                encontrado = true;
-            }
+        if (cicloFormativo == null) {
+            throw new NullPointerException("ERROR: No se puede buscar un ciclo formativo nulo.");
         }
 
-        if (encontrado == true) {
-            return copiaProfundaCiclosFormativos()[i - 1];
+        int i;
+
+        if (coleccionCiclosFormativos.contains(cicloFormativo)) {
+            i = coleccionCiclosFormativos.indexOf(cicloFormativo);
+            cicloFormativo = coleccionCiclosFormativos.get(i);
+            return new CicloFormativo(cicloFormativo);
         } else {
             return null;
         }
@@ -107,21 +68,10 @@ public class CiclosFormativos {
             throw new NullPointerException("ERROR: No se puede borrar un ciclo formativo nulo.");
         }
 
-        int i = buscarIndice(cicloFormativo);
-        if (cicloFormativo.equals(coleccionCiclosFormativos[i])) {
-            desplazarUnaPosicionHaciaIzquierda(i);
-            tamano--;
+        if (coleccionCiclosFormativos.contains(cicloFormativo)) {
+            coleccionCiclosFormativos.remove(cicloFormativo);
         } else {
             throw new OperationNotSupportedException("ERROR: No existe ningún ciclo formativo como el indicado.");
         }
-    }
-
-    private static void desplazarUnaPosicionHaciaIzquierda(int indice) {
-        int i;
-
-        for (i = indice; i < capacidad - 1 && coleccionCiclosFormativos[i] != null; i++) {
-            coleccionCiclosFormativos[i] = coleccionCiclosFormativos[i + 1];
-        }
-        coleccionCiclosFormativos[i] = null;
     }
 }
