@@ -4,6 +4,8 @@ import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Matricula {
@@ -20,9 +22,9 @@ public class Matricula {
     private LocalDate fechaMatriculacion;
     private LocalDate fechaAnulacion;
     private Alumno alumno;
-    private Asignatura [] coleccionAsignaturas = new Asignatura[MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA];
+    private static List<Asignatura> coleccionAsignaturas;
 
-    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
+    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, List<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
         setIdMatricula(idMatricula);
         setCursoAcademico(cursoAcademico);
         setFechaMatriculacion(fechaMatriculacion);
@@ -40,10 +42,10 @@ public class Matricula {
         this.fechaMatriculacion = matricula.fechaMatriculacion;
         this.fechaAnulacion = getFechaAnulacion();
         this.alumno = matricula.alumno;
-        this.coleccionAsignaturas = new Asignatura[matricula.coleccionAsignaturas.length];
-        for (int i = 0; i < matricula.coleccionAsignaturas.length; i++) {
-            if (matricula.coleccionAsignaturas[i] != null) {
-                this.coleccionAsignaturas[i] = new Asignatura(matricula.coleccionAsignaturas[i]);
+        coleccionAsignaturas = new ArrayList<>();
+        for (Asignatura asignatura : coleccionAsignaturas) {
+            if (asignatura != null) {
+                coleccionAsignaturas.add(new Asignatura(asignatura));
             }
         }
     }
@@ -132,30 +134,30 @@ public class Matricula {
         this.alumno = alumno;
     }
 
-    public Asignatura[] getColeccionAsignaturas() {
+    public List<Asignatura> getColeccionAsignaturas() {
         return coleccionAsignaturas;
     }
 
-    public void setColeccionAsignaturas(Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
+    public void setColeccionAsignaturas(List<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
         if (coleccionAsignaturas == null) {
             throw new NullPointerException("ERROR: La lista de asignaturas de una matrícula no puede ser nula.");
         }
-        if (coleccionAsignaturas.length > MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA) {
+        if (coleccionAsignaturas.size() > MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA) {
             throw new IllegalArgumentException("ERROR: El número máximo de asignaturas por matrícula es 10.");
         }
         if (superaMaximoNumeroHorasMatricula(coleccionAsignaturas)) {
             throw new OperationNotSupportedException("ERROR: No se puede realizar la matrícula ya que supera el máximo de horas permitidas (1000 horas).");
         }
 
-        this.coleccionAsignaturas = new Asignatura[coleccionAsignaturas.length];
-        for (int i = 0; i < coleccionAsignaturas.length; i++) {
-            if (coleccionAsignaturas[i] != null) {
-                this.coleccionAsignaturas[i] = new Asignatura(coleccionAsignaturas[i]);
+        this.coleccionAsignaturas = new ArrayList<>();
+        for (Asignatura asignatura : coleccionAsignaturas) {
+            if (asignatura != null) {
+                this.coleccionAsignaturas.add(new Asignatura(asignatura));
             }
         }
     }
 
-    private static boolean superaMaximoNumeroHorasMatricula(Asignatura[] asignaturasMatricula) {
+    private static boolean superaMaximoNumeroHorasMatricula(List<Asignatura> asignaturasMatricula) {
         int totalHoras = 0;
 
         for (Asignatura asignatura : asignaturasMatricula) {
@@ -182,7 +184,7 @@ public class Matricula {
     }
 
     private String asignaturasMatricula() {
-        if (coleccionAsignaturas == null || coleccionAsignaturas.length == 0) {
+        if (coleccionAsignaturas == null || coleccionAsignaturas.isEmpty()) {
             return "No hay asignaturas matriculadas.";
         }
 

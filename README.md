@@ -38,8 +38,8 @@ los diferentes pasos a realizar:
 
 #### Alumnos
 1. Modifica la clase `Alumnos` para que utilice un ArrayList en vez de un Array.
-   Elimina aquellos atributos y métodos que ya no sean necesarios, al utilizar esta nueva estructura.
-   Realiza el **commit** correspondiente.
+2. Elimina aquellos atributos y métodos que ya no sean necesarios, al utilizar esta nueva estructura.
+3. Realiza el **commit** correspondiente.
 
 #### Matriculas
 1. Modifica la clase `Matriculas` para que utilice un ArrayList en vez de un Array.
