@@ -7,20 +7,20 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.*;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.List;
 
 public class Modelo {
-    public static final int CAPACIDAD = 3;
 
     private static Alumnos alumnos;
-    private static Asignaturas asignaturas = new Asignaturas(CAPACIDAD);
-    private static CiclosFormativos ciclosFormativos = new CiclosFormativos(CAPACIDAD);
-    private static Matriculas matriculas = new Matriculas(CAPACIDAD);
+    private static Asignaturas asignaturas;
+    private static CiclosFormativos ciclosFormativos;
+    private static Matriculas matriculas;
 
     public void comenzar() {
-        alumnos = new Alumnos(CAPACIDAD);
-        asignaturas = new Asignaturas(CAPACIDAD);
-        ciclosFormativos = new CiclosFormativos(CAPACIDAD);
-        matriculas = new Matriculas(CAPACIDAD);
+        alumnos = new Alumnos();
+        asignaturas = new Asignaturas();
+        ciclosFormativos = new CiclosFormativos();
+        matriculas = new Matriculas();
         System.out.println("Modelo iniciado.");
     }
 
@@ -40,7 +40,7 @@ public class Modelo {
         alumnos.borrar(alumno);
     }
 
-    public static Alumno[] getAlumnos() {
+    public static List<Alumno> getAlumnos() {
         return alumnos.get();
     }
 
@@ -56,7 +56,7 @@ public class Modelo {
         asignaturas.borrar(asignatura);
     }
 
-    public static Asignatura[] getAsignaturas() {
+    public static List<Asignatura> getAsignaturas() {
         return asignaturas.get();
     }
 
@@ -72,7 +72,7 @@ public class Modelo {
         ciclosFormativos.borrar(cicloFormativo);
     }
 
-    public static CicloFormativo[] getCiclosFormativos() {
+    public static List<CicloFormativo> getCiclosFormativos() {
         return ciclosFormativos.get();
     }
 
@@ -88,19 +88,19 @@ public class Modelo {
         matriculas.borrar(matricula);
     }
 
-    public static Matricula[] getMatriculas() {
+    public static List<Matricula> getMatriculas() {
         return matriculas.get();
     }
 
-    public static Matricula[] getMatriculas(Alumno alumno) {
+    public static List<Matricula> getMatriculas(Alumno alumno) {
         return matriculas.get(alumno);
     }
 
-    public static Matricula[] getMatriculas(CicloFormativo cicloFormativo) {
+    public static List<Matricula> getMatriculas(CicloFormativo cicloFormativo) {
         return matriculas.get(cicloFormativo);
     }
 
-    public static Matricula[] getMatriculas(String cursoAcademico) {
+    public static List<Matricula> getMatriculas(String cursoAcademico) {
         return matriculas.get(cursoAcademico);
     }
 }
