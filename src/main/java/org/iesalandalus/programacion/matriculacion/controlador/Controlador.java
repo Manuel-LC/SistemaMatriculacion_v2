@@ -8,6 +8,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.matriculacion.vista.Vista;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.List;
 
 public class Controlador {
 
@@ -48,7 +49,7 @@ public class Controlador {
         modelo.borrar(alumno);
     }
 
-    public Alumno[] getAlumnos() {
+    public List<Alumno> getAlumnos() {
         return modelo.getAlumnos();
     }
 
@@ -64,7 +65,7 @@ public class Controlador {
         modelo.borrar(asignatura);
     }
 
-    public Asignatura[] getAsignaturas() {
+    public List<Asignatura> getAsignaturas() {
         return modelo.getAsignaturas();
     }
 
@@ -80,7 +81,7 @@ public class Controlador {
         modelo.borrar(cicloFormativo);
     }
 
-    public CicloFormativo[] getCiclosFormativos() {
+    public List<CicloFormativo> getCiclosFormativos() {
         return modelo.getCiclosFormativos();
     }
 
@@ -96,19 +97,19 @@ public class Controlador {
         modelo.borrar(matricula);
     }
 
-    public Matricula[] getMatriculas() {
+    public List<Matricula> getMatriculas() {
         return modelo.getMatriculas();
     }
 
-    public Matricula[] getMatriculas(Alumno alumno) {
+    public List<Matricula> getMatriculas(Alumno alumno) {
         return modelo.getMatriculas(alumno);
     }
 
-    public Matricula[] getMatriculas(CicloFormativo cicloFormativo) {
+    public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) {
         return modelo.getMatriculas(cicloFormativo);
     }
 
-    public Matricula[] getMatriculas(String cursoAcademico) {
+    public List<Matricula> getMatriculas(String cursoAcademico) {
         return modelo.getMatriculas(cursoAcademico);
     }
 }
