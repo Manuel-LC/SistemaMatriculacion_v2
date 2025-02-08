@@ -11,10 +11,10 @@ import java.util.List;
 
 public class Modelo {
 
-    private static Alumnos alumnos;
-    private static Asignaturas asignaturas;
-    private static CiclosFormativos ciclosFormativos;
-    private static Matriculas matriculas;
+    private Alumnos alumnos;
+    private Asignaturas asignaturas;
+    private CiclosFormativos ciclosFormativos;
+    private Matriculas matriculas;
 
     public void comenzar() {
         alumnos = new Alumnos();
@@ -28,79 +28,79 @@ public class Modelo {
         System.out.println("Modelo terminado.");
     }
 
-    public static void insertar(Alumno alumno) throws OperationNotSupportedException {
+    public void insertar(Alumno alumno) throws OperationNotSupportedException {
         alumnos.insertar(alumno);
     }
 
-    public static Alumno buscar(Alumno alumno) {
+    public Alumno buscar(Alumno alumno) {
         return alumnos.buscar(alumno);
     }
 
-    public static void borrar(Alumno alumno) throws OperationNotSupportedException {
+    public void borrar(Alumno alumno) throws OperationNotSupportedException {
         alumnos.borrar(alumno);
     }
 
-    public static List<Alumno> getAlumnos() {
+    public List<Alumno> getAlumnos() {
         return alumnos.get();
     }
 
-    public static void insertar(Asignatura asignatura) throws OperationNotSupportedException {
+    public void insertar(Asignatura asignatura) throws OperationNotSupportedException {
         asignaturas.insertar(asignatura);
     }
 
-    public static Asignatura buscar(Asignatura asignatura) {
+    public Asignatura buscar(Asignatura asignatura) {
         return asignaturas.buscar(asignatura);
     }
 
-    public static void borrar(Asignatura asignatura) throws OperationNotSupportedException {
+    public void borrar(Asignatura asignatura) throws OperationNotSupportedException {
         asignaturas.borrar(asignatura);
     }
 
-    public static List<Asignatura> getAsignaturas() {
+    public List<Asignatura> getAsignaturas() {
         return asignaturas.get();
     }
 
-    public static void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         ciclosFormativos.insertar(cicloFormativo);
     }
 
-    public static CicloFormativo buscar(CicloFormativo cicloFormativo) {
+    public CicloFormativo buscar(CicloFormativo cicloFormativo) {
         return ciclosFormativos.buscar(cicloFormativo);
     }
 
-    public static void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         ciclosFormativos.borrar(cicloFormativo);
     }
 
-    public static List<CicloFormativo> getCiclosFormativos() {
+    public List<CicloFormativo> getCiclosFormativos() {
         return ciclosFormativos.get();
     }
 
-    public static void insertar(Matricula matricula) throws OperationNotSupportedException {
+    public void insertar(Matricula matricula) throws OperationNotSupportedException {
         matriculas.insertar(matricula);
     }
 
-    public static Matricula buscar(Matricula matricula) {
+    public Matricula buscar(Matricula matricula) {
         return matriculas.buscar(matricula);
     }
 
-    public static void borrar(Matricula matricula) throws OperationNotSupportedException {
+    public void borrar(Matricula matricula) throws OperationNotSupportedException {
         matriculas.borrar(matricula);
     }
 
-    public static List<Matricula> getMatriculas() {
+    public List<Matricula> getMatriculas() {
         return matriculas.get();
     }
 
-    public static List<Matricula> getMatriculas(Alumno alumno) {
+    public List<Matricula> getMatriculas(Alumno alumno) {
         return matriculas.get(alumno);
     }
 
-    public static List<Matricula> getMatriculas(CicloFormativo cicloFormativo) {
+    public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) {
         return matriculas.get(cicloFormativo);
     }
 
-    public static List<Matricula> getMatriculas(String cursoAcademico) {
+    public List<Matricula> getMatriculas(String cursoAcademico) {
         return matriculas.get(cursoAcademico);
     }
 }

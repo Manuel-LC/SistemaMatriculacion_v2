@@ -23,9 +23,7 @@ public class Asignaturas {
         List<Asignatura> copiaAsignaturas = new ArrayList<>();
 
         for (Asignatura asignatura : coleccionAsignaturas) {
-            if (asignatura != null) {
-                copiaAsignaturas.add(new Asignatura(asignatura));
-            }
+            copiaAsignaturas.add(new Asignatura(asignatura));
         }
 
         return copiaAsignaturas;

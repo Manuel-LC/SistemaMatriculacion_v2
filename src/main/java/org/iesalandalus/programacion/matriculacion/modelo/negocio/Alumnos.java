@@ -22,9 +22,7 @@ public class Alumnos {
         List<Alumno> copiaAlumnos = new ArrayList<>();
 
         for (Alumno alumno : coleccionAlumnos) {
-            if (alumno != null) {
-                copiaAlumnos.add(new Alumno(alumno));
-            }
+            copiaAlumnos.add(new Alumno(alumno));
         }
 
         return copiaAlumnos;

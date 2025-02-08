@@ -11,7 +11,7 @@ public class Alumno {
     private static final String ER_TELEFONO = "[0-9]{9}";
     private static final String ER_CORREO = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     private static final String ER_DNI = "([0-9]{8})([a-zA-Z])";
-    public static final String FORMATO_FECHA = "dd/MM/yyyy";;
+    public static final String FORMATO_FECHA = "dd/MM/yyyy";
     private static final String ER_NIA = "[a-z]{4}+[0-9]{3}";
     private static final int MIN_EDAD_ALUMNADO = 16;
 
@@ -49,6 +49,14 @@ public class Alumno {
     }
 
     private void setNia() {
+        if (dni == null || nombre == null) {
+            throw new NullPointerException("ERROR: El nombre o el dni de un alumno no pueden ser nulos.");
+        }
+
+        if (dni.isBlank() || nombre.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El nombre o el dni de un alumno no pueden estar vacíos.");
+        }
+        
         String letrasNombre = this.nombre.toLowerCase().substring(0, 4);
 
         String digitosDni = this.dni.substring(5, 8);
@@ -149,7 +157,7 @@ public class Alumno {
         this.dni = dni.toUpperCase();
     }
 
-    public static boolean comprobarLetraDni(String dni) {
+    private static boolean comprobarLetraDni(String dni) {
         if (dni == null || dni.isBlank()) {
             return false;
         }

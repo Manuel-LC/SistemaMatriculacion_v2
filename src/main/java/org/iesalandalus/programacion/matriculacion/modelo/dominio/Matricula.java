@@ -22,7 +22,7 @@ public class Matricula {
     private LocalDate fechaMatriculacion;
     private LocalDate fechaAnulacion;
     private Alumno alumno;
-    private static List<Asignatura> coleccionAsignaturas;
+    private List<Asignatura> coleccionAsignaturas;
 
     public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, List<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
         setIdMatricula(idMatricula);
@@ -40,13 +40,11 @@ public class Matricula {
         this.idMatricula = matricula.idMatricula;
         this.cursoAcademico = matricula.cursoAcademico;
         this.fechaMatriculacion = matricula.fechaMatriculacion;
-        this.fechaAnulacion = getFechaAnulacion();
+        this.fechaAnulacion = matricula.fechaAnulacion;
         this.alumno = matricula.alumno;
-        coleccionAsignaturas = new ArrayList<>();
-        for (Asignatura asignatura : coleccionAsignaturas) {
-            if (asignatura != null) {
-                coleccionAsignaturas.add(new Asignatura(asignatura));
-            }
+        this.coleccionAsignaturas = new ArrayList<>();
+        for (Asignatura asignatura : matricula.coleccionAsignaturas) {
+            this.coleccionAsignaturas.add(new Asignatura(asignatura));
         }
     }
 
@@ -109,6 +107,9 @@ public class Matricula {
     }
 
     public void setFechaAnulacion(LocalDate fechaAnulacion) {
+        if (fechaAnulacion == null) {
+            throw new NullPointerException("ERROR: La fecha de anulación no puede ser nula.");
+        }
         if (ChronoUnit.MONTHS.between(this.fechaMatriculacion, fechaAnulacion) > MAXIMO_MESES_ANTERIOR_ANULACION) {
             throw new IllegalArgumentException("ERROR: La fecha de anulación no puede superar los 6 meses.");
         }
@@ -191,9 +192,7 @@ public class Matricula {
         StringBuilder asignaturasMatriculadas = new StringBuilder();
 
         for (Asignatura asignatura : coleccionAsignaturas) {
-            if (asignatura != null) {
-                asignaturasMatriculadas.append(asignatura.imprimir()).append(", ");
-            }
+            asignaturasMatriculadas.append(asignatura.imprimir()).append(", ");
         }
 
         if (asignaturasMatriculadas.toString().endsWith(", ")) {

@@ -23,9 +23,7 @@ public class CiclosFormativos {
         List<CicloFormativo> copiaCiclosFormativos = new ArrayList<>();
 
         for (CicloFormativo cicloFormativo : coleccionCiclosFormativos) {
-            if (cicloFormativo != null) {
-                copiaCiclosFormativos.add(new CicloFormativo(cicloFormativo));
-            }
+            copiaCiclosFormativos.add(new CicloFormativo(cicloFormativo));
         }
 
         return copiaCiclosFormativos;

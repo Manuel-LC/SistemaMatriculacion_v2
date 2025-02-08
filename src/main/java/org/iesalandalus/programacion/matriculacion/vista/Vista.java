@@ -7,7 +7,6 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
-import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -47,7 +46,7 @@ public class Vista {
         System.out.println();
     }
 
-    private void ejecutarOpcion(Opcion opcion) throws OperationNotSupportedException {
+    private void ejecutarOpcion(Opcion opcion) {
         switch (opcion) {
             case INSERTAR_ALUMNO: insertarAlumno(); break;
             case BUSCAR_ALUMNO: buscarAlumno(); break;
@@ -253,9 +252,9 @@ public class Vista {
             System.out.println("Inserción de una matrícula");
             System.out.println("=============================================================================================");
 
-            System.out.println("-- Datos del alumno --");
-            Alumno alumno = Consola.leerAlumno();
-            System.out.println();
+            System.out.println("-- Alumno --");
+            Alumno alumno = Consola.getAlumnoPorDni();
+            alumno = controlador.buscar(alumno);
 
             System.out.println("-- Asignaturas de la matrícula --");
             List<Asignatura> asignaturasMatricula = Consola.elegirAsignaturasMatricula(controlador.getAsignaturas());
@@ -304,11 +303,10 @@ public class Vista {
             if (matricula != null) {
                 LocalDate fechaAnulacion = Consola.leerFecha("Introduce la fecha de anulación");
                 matricula.setFechaAnulacion(fechaAnulacion);
-                controlador.borrar(matricula);
                 System.out.println();
 
                 Locale spanishLocale = new Locale("es", "ES");
-                String dateInSpanish = fechaAnulacion.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM, yyyy",spanishLocale));
+                String dateInSpanish = fechaAnulacion.format(DateTimeFormatter.ofPattern("dd/MMMM/yyyy",spanishLocale));
                 System.out.println("Matrícula anulada correctamente el " + dateInSpanish + ".");
             } else {
                 System.out.println("No existe ninguna matrícula con ese identificador.");
@@ -319,7 +317,7 @@ public class Vista {
         }
     }
 
-    private static void mostrarMatriculas() throws OperationNotSupportedException {
+    private static void mostrarMatriculas() {
         List<Matricula> listaMatriculas = controlador.getMatriculas();
 
         listaMatriculas = listaMatriculas.stream().sorted(Comparator.comparing(Matricula::getFechaMatriculacion)

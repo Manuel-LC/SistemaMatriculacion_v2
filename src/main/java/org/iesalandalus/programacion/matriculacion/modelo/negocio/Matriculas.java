@@ -25,9 +25,7 @@ public class Matriculas {
         List<Matricula> copiaMatriculas = new ArrayList<>();
 
         for (Matricula matricula : coleccionMatriculas) {
-            if (matricula != null) {
-                copiaMatriculas.add(new Matricula(matricula));
-            }
+            copiaMatriculas.add(new Matricula(matricula));
         }
 
         return copiaMatriculas;
@@ -59,7 +57,7 @@ public class Matriculas {
         if (coleccionMatriculas.contains(matricula)) {
             i = coleccionMatriculas.indexOf(matricula);
             matricula = coleccionMatriculas.get(i);
-            return new Matricula(matricula);
+            return matricula;
         } else {
             return null;
         }
@@ -81,7 +79,7 @@ public class Matriculas {
         List<Matricula> coleccionMatriculasAlumno = new ArrayList<>();
 
         for (Matricula matricula : coleccionMatriculas) {
-            if (matricula != null && matricula.getAlumno().equals(alumno)) {
+            if (matricula.getAlumno().equals(alumno)) {
                 coleccionMatriculasAlumno.add(matricula);
             }
         }
@@ -92,7 +90,7 @@ public class Matriculas {
         List<Matricula> coleccionMatriculasCurso = new ArrayList<>();
 
         for (Matricula matricula : coleccionMatriculas) {
-            if (matricula != null && matricula.getCursoAcademico().equals(cursoAcademico)) {
+            if (matricula.getCursoAcademico().equals(cursoAcademico)) {
                 coleccionMatriculasCurso.add(matricula);
             }
         }
@@ -107,17 +105,13 @@ public class Matriculas {
         }
 
         for (Matricula matricula : coleccionMatriculas) {
-            if (matricula != null) {
+            List<Asignatura> asignaturasMatricula = matricula.getColeccionAsignaturas();
 
-                List<Asignatura> asignaturasMatricula = matricula.getColeccionAsignaturas();
-
-                for (Asignatura asignatura : asignaturasMatricula) {
-                    if (asignatura != null && asignatura.getCicloFormativo().equals(cicloFormativo)) {
-                        coleccionMatriculasCiclo.add(matricula);
-                        break;
-                    }
+            for (Asignatura asignatura : asignaturasMatricula) {
+                if (asignatura.getCicloFormativo().equals(cicloFormativo)) {
+                    coleccionMatriculasCiclo.add(matricula);
+                    break;
                 }
-
             }
         }
 
